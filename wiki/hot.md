@@ -1,68 +1,119 @@
 ---
 type: meta
 title: "Hot Cache"
-updated: 2026-04-08T19:00:00
+created: 2026-04-07
+updated: 2026-06-10
 tags:
   - meta
   - hot-cache
+  - agronutikas
+  - multi-repo
+  - ecc
+  - phase-a
 status: evergreen
 related:
   - "[[index]]"
   - "[[log]]"
-  - "[[Wiki Map]]"
-  - "[[getting-started]]"
-  - "[[claude-obsidian-v1.4-release-session]]"
+  - "[[overview]]"
+  - "[[Architecture]]"
+  - "[[Compliance]]"
+  - "[[Business]]"
+  - "[[meta/agronutikas-multirepo-phase-a-bc-shipping]]"
 ---
 
-# Recent Context
+# Hot Cache — Latest Context
 
-Navigation: [[index]] | [[log]] | [[overview]]
+Last updated: 2026-06-10 | AgroNutikas multi-repo platform
 
-## Last Updated
-2026-04-08: v1.4.1 hotfix shipped, plugin confirmed installed and enabled
+Navigation: [[index]] | [[overview]] | [[log]] | [[Architecture]]
 
-## Plugin State
-- **Version**: 1.4.1 (installed, enabled, user scope)
-- **Install ID**: `claude-obsidian@claude-obsidian-marketplace`
-- **Releases**: v1.1, v1.4.0, v1.4.1 on GitHub
-- **Skills**: 10 (wiki, wiki-ingest, wiki-query, wiki-lint, save, autoresearch, canvas, defuddle, obsidian-bases, obsidian-markdown)
-- **Hooks**: 4 (SessionStart, PostCompact, PostToolUse, Stop)
-- **Multi-agent**: bootstrap files for Codex, OpenCode, Gemini, Cursor, Windsurf, GitHub Copilot
+---
 
-## Install Command (Correct Two-Step Flow)
-```bash
-claude plugin marketplace add AgriciDaniel/claude-obsidian
-claude plugin install claude-obsidian@claude-obsidian-marketplace
-```
+## 2026-06-10 — Multi-repo enhancement plan + Phase A B/C shipped
 
-There is no `claude plugin install github:owner/repo` shortcut. Both steps are required. Full session note: [[claude-obsidian-v1.4-release-session]].
+18-month, 3-horizon multi-repo enhancement plan approved (`C:\Users\gert\.claude\plans\a-composed-stallman.md`): Phase A (foundation consolidation + safety automation, months 0–3), Phase B (ECC selective adoption per repo, months 3–9), Phase C (operator control plane + cross-repo orchestration, months 6–18). Drafted via 3 parallel Explore + 3 parallel Plan agents.
 
-## Recent Release Cycle (v1.1 → v1.4.1)
-- **v1.1**: URL ingestion, vision ingestion, delta tracking manifest, 3 new skills (defuddle, obsidian-bases, obsidian-markdown), multi-depth query modes, PostToolUse auto-commit, removed invalid `allowed-tools` frontmatter field
-- **v1.4.0**: Dataview to Bases migration (new `wiki/meta/dashboard.base`), Canvas JSON 1.0 spec completeness, PostCompact hook, Obsidian CLI MCP option, 6 multi-agent bootstrap files, 249 em dashes scrubbed, security git history rewrite to remove placeholder email
-- **v1.4.1**: hotfix for wrong plugin install command syntax in README and install-guide.md
+**3 PRs shipped same day:**
 
-## Key Lessons (Recent)
-1. Plugin install is always two-step: `marketplace add` then `install plugin@marketplace`
-2. `allowed-tools` is NOT valid in skill frontmatter. Use only `name` and `description` (kepano convention).
-3. Obsidian Bases uses `filters/views/formulas`, not Dataview `from/where`
-4. Canvas edges have asymmetric defaults: `fromEnd="none"`, `toEnd="arrow"`
-5. Hook-injected context does not survive compaction. PostCompact hook is required to restore hot cache.
-6. `git filter-repo` needs two passes: `--replace-text` for blobs, `--replace-message` for commit messages
+- [PR #1 `AgroNutikas/performance`](https://github.com/AgroNutikas/performance/pull/1) `9533c520` — ECC Hermes docs clarify `ecc-tui` Rust crate ownership of `migrate *` subcommands + 2 Windows test fixes.
+- [PR #3 `AgroNutikas/agronutikas-workspace`](https://github.com/AgroNutikas/agronutikas-workspace/pull/3) `ff0140d7` — TECH-DEBT P0.1 reality sync. Discovery: feared credential leak never had remote exposure (files always gitignored, never committed). Local copies quarantined to `_handoff/p0-1-quarantine-2026-06-10/`.
+- [PR #4 `AgroNutikas/agronutikas-workspace`](https://github.com/AgroNutikas/agronutikas-workspace/pull/4) `a01c3573` — `scripts/branch-status.sh` workspace operator script (first of 4 Phase A.4 scripts).
 
-## Style Preferences (Saved to Memory)
-- **No em dashes** (U+2014) or `--` as punctuation anywhere. Use periods, commas, colons, or parentheses. Hyphens in compound words are fine (auto-commit, multi-agent).
-- Keep responses short and direct. No trailing "here's what I did" summaries.
-- Parallel tool calls when independent.
+**Phase A status**: A.2 done, A.4 first of 4 scripts done. Pending: A.1 anchors sprint (~3 weeks), A.3, remaining A.4 scripts, A.5–A.8.
 
-## Ecosystem Research (Done 2026-04-08)
-16+ Claude + Obsidian projects mapped. Full feature matrix at [[claude-obsidian-ecosystem]]. Prioritized backlog at [[cherry-picks]]. Top competitors: [[Ar9av-obsidian-wiki]] (multi-agent + delta tracking), [[rvk7895-llm-knowledge-bases]] (multi-depth query), [[ballred-obsidian-claude-pkm]] (goal cascade + auto-commit), [[kepano-obsidian-skills]] (authoritative Obsidian skills from Obsidian's own creator).
+**Session note**: [[meta/agronutikas-multirepo-phase-a-bc-shipping]] — full session arc, decisions, file list, next entry point.
 
-## Active Threads
-- v1.5.0 backlog: `/adopt` command, vault graph analysis in wiki-lint, semantic search via qmd, Marp output
-- `community` remote (`avalonreset-pro/claude-obsidian`) still has pre-rewrite history. Force-push needed next time that remote is configured.
+---
+
+## 2026-05-08 — Track 3 shipped
+
+PRs #18 (agronutikas-web), #90 + #91 (platform). Full farmer onboarding flow live:
+
+landing page (`agronutikas.ee/talunikule`) → signup → admin email notify → approval → welcome email → setup wizard → day-1 insight card → weekly digest cron Mondays 09:00 UTC.
+
+- **New table:** `pilot_weekly_digest_log` (migration 037)
+- **New service:** `TransactionalEmailService` (Resend HTTP)
+- **New worker subsystem:** `WeeklyDigestScheduler`
+- **Flow page:** [[farmer-onboarding-flow]]
+
+Today merged: Phase B (`73fe5a2`) + Phase C (`6858d1a`). Branch context up to today: `feat/demo-audit-v2-bundle-b`.
+
+---
+
+## AgroNutikas Platform Overview
+
+Single-farm Estonian agricultural compliance platform (pilot scope, Viraito OÜ on 942 ha, Põltsamaa).
+
+### 3 Repos
+
+| Repo                 | Workspace                   | Deploy                  |
+| -------------------- | --------------------------- | ----------------------- |
+| agronutikas-platform | API, Worker, Bot, Contracts | Railway, GitHub Actions |
+| AgroNutikas-Demo-v1  | Demo (separate deploy)      | Vercel (auto-synced)    |
+| agronutikas-web      | Marketing site              | Vercel (static)         |
+
+### Stack
+
+API: NestJS 11 + Fastify 5 + PostgreSQL 16 + PostGIS 3.4 (Railway). Demo: Vanilla JS + Vite + Leaflet + Chart.js (Vercel). Web: static HTML (Vercel). Worker: TypeScript + pg outbox (Railway). Bot: TypeScript + Anthropic SDK (Railway).
+
+### Key Numbers (current)
+
+- **20 pilot modules** (auth, farm, data, crop-history, activities, compliance, rules, fertility, org, automation, weather, xtee, subsidies, business-registry, import, alerts, history, feedback, setup, **analytics**)
+- **36 migrations** (chain at 036, next: 037; 008 + 035 unused)
+- **20+ views** (demo SPA), **40+ components**, **458+ Vitest tests**
+- **36 compliance rules** (20 conventional + 16 organic EU 2018/848)
+- **27 ADRs**, **5 external integrations** (PRIA, e-Äriregister, X-tee, Open-Meteo, Ilmateenistus)
+
+---
+
+## Domain Quick Reference
+
+**7 restriction zones:** NTA (85 kg N/ha), veekaitsevöönd, kaitseala, hoiuala, piiranguvöönd, Natura2000, muu.
+
+**Nitrogen limits:** 170 kg N/ha normal, 85 kg N/ha NTA.
+
+**Auth:** PBKDF2-SHA256, HttpOnly `sessionid` cookie, `pilot_sessions` table, `PilotAuthGuard`.
+
+**Layer pattern:** Controller → Service → Repository (parameterized SQL, `pilot_` prefix, GiST spatial indexes, SRID 4326).
+
+---
 
 ## Repo Locations
-- Working: `~/Desktop/claude-obsidian/`
-- Public: https://github.com/AgriciDaniel/claude-obsidian
-- Community (private): https://github.com/avalonreset-pro/claude-obsidian
+
+- platform: `C:\Users\gert\Desktop\agronutikas-platform\`
+- demo deploy: `C:\Users\gert\Desktop\AgroNutikas-Demo-v1\`
+- web: `C:\Users\gert\Desktop\agronutikas-web\`
+- wiki: `C:\GitHub\claude-obsidian\`
+
+---
+
+## Style Reminders
+
+- Terse, no trailing summaries. Estonian domain terms.
+- Wikilinks `[[Page Name]]`, frontmatter required (type, title, created, updated, tags, status).
+- Status values: seed, developing, current, mature, deprecated, live.
+- No `console.log` in production. Use structured logger / `lib/logger.js`.
+
+---
+
+Navigation: [[index]] | [[Architecture]] | [[Compliance]] | [[Business]] | [[domains/_index]]

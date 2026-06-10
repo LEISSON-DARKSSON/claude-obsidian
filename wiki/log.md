@@ -26,6 +26,18 @@ Parse recent entries: `grep "^## \[" wiki/log.md | head -10`
 
 ---
 
+## [2026-06-10] save | AgroNutikas Multi-Repo Enhancement Plan + Phase A B/C Shipping
+
+- Type: planning + partial execution
+- Plan: `C:\Users\gert\.claude\plans\a-composed-stallman.md` — approved 18-month, 3-horizon plan (A foundation, B ECC adoption, C operator control plane). Drafted via 3 parallel Explore + 3 parallel Plan agents.
+- Shipped: PR #1 (`AgroNutikas/performance` — ECC Hermes docs + Windows test fixes, `9533c520`), PR #3 (`AgroNutikas/agronutikas-workspace` — TECH-DEBT P0.1 sync, `ff0140d7`), PR #4 (`AgroNutikas/agronutikas-workspace` — `scripts/branch-status.sh`, `a01c3573`). All squash-merged via REST.
+- Discovery wins: TECH-DEBT P0.1 credential leak never had remote exposure (files always gitignored, never committed) — quarantined to `_handoff/p0-1-quarantine-2026-06-10/` for evidence trail.
+- Phase A status: A.2 done, A.4 first script done. Pending: A.1 anchors sprint (~3 weeks), A.3, remaining A.4 scripts, A.5–A.8.
+- Session note: [[meta/agronutikas-multirepo-phase-a-bc-shipping]]
+- Next entry point: A.1 workspace `AGENTS.md` §13 + stable anchors (1 PR, 25 min) → 8 per-repo pointer-conversion PRs.
+
+---
+
 ## [2026-05-08] ship | Design System V6.0 brand-pack rollout
 
 - Type: shipped
