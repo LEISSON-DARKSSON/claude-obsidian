@@ -19,6 +19,10 @@ related:
   - "[[Compliance]]"
   - "[[Business]]"
   - "[[meta/agronutikas-multirepo-phase-a-bc-shipping]]"
+  - "[[questions/Research ECC Plugin Selective-Install Patterns]]"
+  - "[[concepts/Selective Install Pattern]]"
+  - "[[concepts/Harness Adapter Pattern]]"
+  - "[[concepts/Cross-Harness Compatibility]]"
 ---
 
 # Hot Cache — Latest Context
@@ -26,6 +30,26 @@ related:
 Last updated: 2026-06-10 | AgroNutikas multi-repo platform
 
 Navigation: [[index]] | [[overview]] | [[log]] | [[Architecture]]
+
+---
+
+## 2026-06-10 — Autoresearch: ECC Plugin Selective-Install Patterns
+
+12 new pages filed via `/autoresearch`. Master synthesis: [[Research ECC Plugin Selective-Install Patterns]]. Direct input for Phase B of [[meta/agronutikas-multirepo-phase-a-bc-shipping]] long-run plan.
+
+**Headline findings**:
+
+- Selective install (`--profile / --with / --without` over a manifest pipeline) is a **third-party layer on top of Anthropic's whole-plugin spec** — Claude Code's official `plugin.json` model treats plugins as atomic install units.
+- [[entities/Affaan Mustafa]]'s ECC v1.9.0 (March 2026) **introduced the pattern**; component families use `lang:`, `agent:`, `skill:`, `framework:`, `capability:` prefixes.
+- Four parallel architectures surveyed:
+  1. **ECC** — component-subset selective install, two-stage `install-plan.js` + `install-apply.js`, per-target adapters, 7-9 harnesses
+  2. **wshobson/agents** — 84 atomic per-plugin units, build-time `make generate-all`, 5-6 harnesses
+  3. **Compound Engineering Plugin** — install-time conversion, bidirectional sync, 11+ harnesses (broadest coverage)
+  4. **HarnessForge** — single-command `uvx harnessforge init` repo bootstrap, whole-repo not per-component
+- Per-target adapter constraints absorbed invisibly: Codex 8 KB skill cap, commands→skills mapping, OpenCode permission blocks, Gemini TOML format.
+- All approaches respect `agentskills.io` open standard at the skill-content level; differ only in distribution + selection grammar.
+
+**Concepts**: [[concepts/Selective Install Pattern]] · [[concepts/Harness Adapter Pattern]] · [[concepts/Cross-Harness Compatibility]]
 
 ---
 

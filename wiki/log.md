@@ -26,6 +26,21 @@ Parse recent entries: `grep "^## \[" wiki/log.md | head -10`
 
 ---
 
+## [2026-06-10] autoresearch | ECC Plugin Selective-Install Patterns
+
+- Rounds: 2 (Round 3 skipped — no major contradictions)
+- Searches: 11 (6 Round 1 broad + 5 Round 2 gap fill)
+- Sources fetched: 7 (Anthropic plugin + skill + reference docs; ECC README + v1.9.0 release notes; wshobson/agents README; Compound Engineering search-snippet)
+- Pages created: 12
+  - Synthesis: [[Research ECC Plugin Selective-Install Patterns]]
+  - Concepts (3): [[Selective Install Pattern]], [[Harness Adapter Pattern]], [[Cross-Harness Compatibility]]
+  - Sources (7): [[Claude Code Plugins Official Docs]], [[Claude Code Skills Official Docs]], [[Claude Code Plugin Reference]], [[ECC Repository README]], [[ECC v1.9.0 Release Notes]], [[wshobson Agents Marketplace]], [[Compound Engineering Plugin]]
+  - Entity (1): [[Affaan Mustafa]]
+- Key finding: Selective install (`--profile / --with / --without` over a manifest pipeline) is a third-party layer on top of Anthropic's whole-plugin spec; ECC v1.9.0 (March 2026) introduced it; wshobson, Compound Engineering, HarnessForge implement parallel approaches at different grains and timings.
+- Feeds into Phase B of [[meta/agronutikas-multirepo-phase-a-bc-shipping]] long-run plan.
+
+---
+
 ## [2026-06-10] save | AgroNutikas Multi-Repo Enhancement Plan + Phase A B/C Shipping
 
 - Type: planning + partial execution
